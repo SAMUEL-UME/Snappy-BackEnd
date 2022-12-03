@@ -9,6 +9,7 @@ module.exports.addMessage = async (req, res, next) => {
       sender: from,
     });
     if (data) return res.json({ msg: "Message sent" });
+    res.header("Access-Control-Allow-Origin", "https://snappy-front-end.vercel.app")
     return res.json({ msg: "Opps something went wrong, message not sent" });
   } catch (ex) {
     next(ex);
@@ -30,7 +31,7 @@ module.exports.getAllMessage = async (req, res, next) => {
         message: msg.message.text,
       };
     });
-
+    res.header("Access-Control-Allow-Origin", "https://snappy-front-end.vercel.app")
     res.json(projectMessages);
   } catch (ex) {
     next(ex);
