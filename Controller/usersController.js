@@ -49,10 +49,16 @@ module.exports.setAvatar = async (req, res, next) => {
       isAvatarImagesSet: true,
       avatarImage,
     });
-    return res.json({
-      isSet: userData.isAvatarImagesSet,
-      image: userData.avatarImage,
-    });
+    return (
+      res.header(
+        "Access-Control-Allow-Origin",
+        "https://snappy-front-end.vercel.app"
+      ),
+      res.json({
+        isSet: userData.isAvatarImagesSet,
+        image: userData.avatarImage,
+      })
+    );
   } catch (ex) {
     next(ex);
   }
@@ -66,7 +72,13 @@ module.exports.getAllUsers = async (req, res, next) => {
       "avatarImage",
       "_id",
     ]);
-    return res.json(users);
+    return (
+      res.header(
+        "Access-Control-Allow-Origin",
+        "https://snappy-front-end.vercel.app"
+      ),
+      res.json(users)
+    );
   } catch (ex) {
     next(ex);
   }
