@@ -21,13 +21,13 @@ mongoose
   })
   .then(() => {
     console.log(`Db connections succesful`);
-    var server = app.listen(process.env.PORT || 5000, () => {
+    var server = app.listen(process.env.PORT || 3000, () => {
       console.log(`Server is listening on port ${process.env.PORT}`);
     });
 
     const io = socket(server, {
       cors: {
-        origin: "http://localhost:3000",
+        origin: "https://snappy-front-end.vercel.app",
         Credentials: true,
       },
     });
