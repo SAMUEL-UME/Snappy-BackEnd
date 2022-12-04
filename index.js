@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", userRouter);
 app.use("/api/messages", messageRoutes);
-
+// console.log("I got here");
 mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
@@ -29,18 +29,13 @@ mongoose
   })
   .then(() => {
     console.log(`Db connections succesful`);
-  })
-  .catch((e) => {
-    console.log("An error occured", e.message);
-  });
-
-const server = app.listen(process.env.PORT || 5000, () => {
-  console.log(`Server is listening on port ${process.env.PORT}`);
-});
+    var server = app.listen(process.env.PORT || 3000, () => {
+      console.log(`Server is listening on port ${process.env.PORT}`);
+    });
 
     const io = socket(server, {
       cors: {
-        origin: "https://snappy-front-end.vercel.app",
+        origin: "*",
         Credentials: true,
       },
     });
@@ -60,4 +55,7 @@ const server = app.listen(process.env.PORT || 5000, () => {
         }
       });
     });
- 
+  })
+  .catch((e) => {
+    console.log("An error occured", e.message);
+  });

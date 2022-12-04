@@ -25,6 +25,7 @@ module.exports.register = async (req, res, next) => {
 };
 
 module.exports.login = async (req, res, next) => {
+  // console.log("---------------Hello------------------");
   try {
     const { username, password } = req.body;
     const user = await User.findOne({ username });
@@ -34,7 +35,7 @@ module.exports.login = async (req, res, next) => {
     if (!isPasswordValid)
       return res.json({ msg: "Incoorect username or password", status: false });
     delete user.password;
-    console.log(user);
+    // console.log(user);
     return res.json({ status: true, user });
   } catch (ex) {
     next(ex);
@@ -49,16 +50,10 @@ module.exports.setAvatar = async (req, res, next) => {
       isAvatarImagesSet: true,
       avatarImage,
     });
-    return (
-      res.header(
-        "Access-Control-Allow-Origin",
-        "https://snappy-front-end.vercel.app"
-      ),
-      res.json({
-        isSet: userData.isAvatarImagesSet,
-        image: userData.avatarImage,
-      })
-    );
+    return res.json({
+      isSet: userData.isAvatarImagesSet,
+      image: userData.avatarImage,
+    });
   } catch (ex) {
     next(ex);
   }
@@ -72,13 +67,7 @@ module.exports.getAllUsers = async (req, res, next) => {
       "avatarImage",
       "_id",
     ]);
-    return (
-      res.header(
-        "Access-Control-Allow-Origin",
-        "https://snappy-front-end.vercel.app"
-      ),
-      res.json(users)
-    );
+    return res.json(users);
   } catch (ex) {
     next(ex);
   }
