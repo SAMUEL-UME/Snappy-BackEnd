@@ -16,7 +16,7 @@ app.use((req, res, next) => {
 });
 
 app.get("/", (req, res) => {
-  res.send("Welcome to my home page");
+  res.send("--------------------Welcome to my home page--------------------");
 });
 
 app.use("/api/auth", userRouter);
