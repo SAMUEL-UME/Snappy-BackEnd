@@ -44,16 +44,20 @@ mongoose
 
     io.on("connection", (socket) => {
       global.chatSocket = socket;
-      socket.on("add-user", (userId) => {
-        onlineUsers.set(userId, socket.id);
-      });
+      try {
+        socket.on("add-user", (userId) => {
+          onlineUsers.set(userId, socket.id);
+        });
 
-      socket.on("send-msg", (data) => {
-        const sendUserSocket = onlineUsers.get(data.to);
-        if (sendUserSocket) {
-          socket.to(sendUserSocket).emit("msg-recieve", data.message);
-        }
-      });
+        socket.on("send-msg", (data) => {
+          const sendUserSocket = onlineUsers.get(data.to);
+          if (sendUserSocket) {
+            socket.to(sendUserSocket).emit("msg-recieve", data.message);
+          }
+        });
+      } catch (e) {
+        console.log(e);
+      }
     });
   })
   .catch((e) => {
