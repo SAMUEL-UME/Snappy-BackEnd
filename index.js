@@ -23,6 +23,7 @@ app.use("/api/auth", userRouter);
 app.use("/api/messages", messageRoutes);
 // console.log("I got here");
 mongoose
+  .set("strictQuery", false)
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     UseUnifiedTopology: true,
